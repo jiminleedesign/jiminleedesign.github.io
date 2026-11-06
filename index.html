@@ -2492,12 +2492,17 @@ Animation Director:&nbsp;Rob Kohr, Michelle Acuna             Animators: Katie W
 </style><script id="comic-con-coming-soon">(() => {
  const card=document.querySelector('#jc-work-grid [data-project="comic-con"]');
  if(!card)return;
+ const url='https://www.linkedin.com/posts/hellojimin_nickelodeon-comiccon-sdcc-activity-7511470301436657664-L-IY?utm_source=share&utm_medium=member_desktop&rcm=ACoAACHf7VUBOKAxk8Gt2xu4nLuR6KYKoaokg5I';
  const title=card.querySelector('.v4-title-link');
- if(title){title.removeAttribute('href');title.setAttribute('aria-disabled','true');title.style.cursor='default';}
+ if(title){title.href=url;title.removeAttribute('aria-disabled');title.style.cursor='pointer';}
+ const preview=card.querySelector('[data-project-preview]');
+ if(preview){preview.removeAttribute('aria-disabled');preview.setAttribute('aria-label','Nickelodeon Comic-Con — View on LinkedIn');preview.style.cursor='pointer';}
  card.addEventListener('click',event=>{
   if(event.target.closest('.thumbnail-order-handle'))return;
-  if(event.target.closest('[data-project-preview],.v4-title-link,.jc-case-actions')){
-   event.preventDefault();event.stopImmediatePropagation();
+  const link=event.target.closest('.v4-title-link');
+  if(link){event.stopImmediatePropagation();return;}
+  if(event.target.closest('[data-project-preview],.jc-case-actions')){
+   event.preventDefault();event.stopImmediatePropagation();window.location.assign(url);
   }
  },true);
 })();</script>

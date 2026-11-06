@@ -1483,7 +1483,7 @@ body{background:#fff}
 @media print{#jimin-cargo-plan .ce-actions,#jimin-cargo-plan .ce-inspector,#jimin-cargo-plan .ce-block-tools{display:none!important}#jimin-cargo-plan .ce-editing .ce-layout{display:block}#jimin-cargo-plan .ce-block{outline:0!important}}
 
 </style>
-<a class="jc-skip-link" href="/work/self-promo/#jc-main">Skip to content</a>
+<a class="jc-skip-link" href="/#jc-main">Skip to content</a>
 <aside class="jc-side">
   <div class="jc-intro"><h2><a class="jc-home-link" href="/" aria-label="Jimin Lee — Work">Jimin Lee</a></h2><p>Motion designer based in<br>New York, specializing in<br>art direction, illustration,<br>and animation.</p></div>
   <nav class="jc-nav" aria-label="Portfolio sections">
@@ -2492,12 +2492,17 @@ Animation Director:&nbsp;Rob Kohr, Michelle Acuna             Animators: Katie W
 </style><script id="comic-con-coming-soon">(() => {
  const card=document.querySelector('#jc-work-grid [data-project="comic-con"]');
  if(!card)return;
+ const url='https://www.linkedin.com/posts/hellojimin_nickelodeon-comiccon-sdcc-activity-7511470301436657664-L-IY?utm_source=share&utm_medium=member_desktop&rcm=ACoAACHf7VUBOKAxk8Gt2xu4nLuR6KYKoaokg5I';
  const title=card.querySelector('.v4-title-link');
- if(title){title.removeAttribute('href');title.setAttribute('aria-disabled','true');title.style.cursor='default';}
+ if(title){title.href=url;title.removeAttribute('aria-disabled');title.style.cursor='pointer';}
+ const preview=card.querySelector('[data-project-preview]');
+ if(preview){preview.removeAttribute('aria-disabled');preview.setAttribute('aria-label','Nickelodeon Comic-Con — View on LinkedIn');preview.style.cursor='pointer';}
  card.addEventListener('click',event=>{
   if(event.target.closest('.thumbnail-order-handle'))return;
-  if(event.target.closest('[data-project-preview],.v4-title-link,.jc-case-actions')){
-   event.preventDefault();event.stopImmediatePropagation();
+  const link=event.target.closest('.v4-title-link');
+  if(link){event.stopImmediatePropagation();return;}
+  if(event.target.closest('[data-project-preview],.jc-case-actions')){
+   event.preventDefault();event.stopImmediatePropagation();window.location.assign(url);
   }
  },true);
 })();</script>

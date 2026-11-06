@@ -1104,7 +1104,7 @@ html>body{padding:0}</style>
 #jimin-cargo-plan .v4-bottom-motion .jc-hover-title{font:inherit;font-weight:600;color:inherit}
 #jimin-cargo-plan .v4-bottom-motion .jc-hover-role{font-family:inherit;font-size:.72em;font-weight:300;line-height:1.3;color:inherit}
 @media(prefers-reduced-motion:reduce){#jimin-cargo-plan .v4-bottom-motion .jc-hover-caption{transition:none}}
-</style></head>
+</style><style id="continuous-filter-grid">#jimin-cargo-plan .v4-more-grid > .v4-bottom-motion.is-filtered:not([hidden]){display:contents}</style></head>
 <body>
 <div id="jimin-cargo-plan" aria-label="Jimin Lee portfolio" style="--jc-name-weight: 700; --jc-sidebar-weight: 400; --jc-headings-weight: 400; --jc-font: Arial,Helvetica,sans-serif; --jc-name-size: 28px; --jc-sidebar-size: 14px; --jc-headings-size: 22px; --jc-home-size: 14px; --jc-index-size: 14px; --jc-play-size: 14px; --jc-about-size: 14px; --jc-work-number-size: 18px; --jc-work-number-weight: 400; --jc-work-name-size: 20px; --jc-work-name-weight: 700; --jc-work-role-size: 20px; --jc-work-role-weight: 400; --jc-work-circle-size: 12px; --jc-work-circle-weight: 400; --jc-work-actions-size: 16px; --jc-work-actions-weight: 400; --jc-space-bio-nav: 42px; --jc-space-headings: 8px; --jc-space-sidebar-content: 40px;" data-font-weights="400;700">
 <style id="jc-portfolio-styles">
@@ -1896,7 +1896,16 @@ Animation Director:&nbsp;Rob Kohr, Michelle Acuna             Animators: Katie W
     });
     document.getElementById('jc-work-empty').hidden=count>0;
     document.getElementById('jc-work-filter-status').textContent=`Showing ${count} projects${filter==='all'?'':': '+labels[filter]}.`;
-    work.querySelectorAll('.jc-drift-grid, .v4-bottom-motion').forEach(group => group.hidden = !Array.from(group.children).some(card => !card.hidden));
+    const extraRow=work.querySelector('.v4-bottom-motion');
+    const moreGrid=work.querySelector('.v4-more-grid');
+    if(extraRow&&moreGrid){
+      extraRow.classList.toggle('is-filtered',filter!=='all');
+      if(filter==='all')gallery.append(extraRow);
+      else moreGrid.append(extraRow);
+    }
+    work.querySelectorAll('.jc-drift-grid, .v4-bottom-motion').forEach(group => {
+      group.hidden=!Array.from(group.querySelectorAll('[data-project], [data-work-extra]')).some(card=>!card.hidden);
+    });
     work.dispatchEvent(new CustomEvent('portfolioworkfilterchange'));
   }
   function setLayout(value) {

@@ -2020,6 +2020,14 @@ Animation Director:&nbsp;Rob Kohr, Michelle Acuna             Animators: Katie W
     const name=Object.keys(routes).find(k=>routes[k]===button.dataset.view)||'work';
     go('#'+name+(name==='work'&&filter!=='all'?'/'+filter:''),event.isTrusted);
   }));
+  // Render Archive project links from the freshly loaded page, avoiding a stale cached document.
+  root.querySelector('#jc-section-archive')?.addEventListener('click',event=>{
+    const link=event.target.closest('a[href]');
+    if(!link||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
+    const id=Object.keys(publicPaths).find(id=>publicPaths[id]===link.getAttribute('href'));
+    if(!id)return;
+    event.preventDefault();go('#work/project/'+id);
+  });
   work.addEventListener('click',event=>{
     const preview=event.target.closest('[data-project-preview]');
     const category=event.target.closest('[data-work-filter]');
